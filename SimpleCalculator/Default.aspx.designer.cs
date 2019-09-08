@@ -15,7 +15,7 @@ namespace SimpleCalculator {
 		
 		protected System.Web.UI.HtmlControls.HtmlForm form1;
 		
-		protected System.Web.UI.HtmlControls.HtmlInputText calc_result;
+		protected System.Web.UI.HtmlControls.HtmlInputText calculationText;
 		
 		protected System.Web.UI.WebControls.Button Button7;
 		

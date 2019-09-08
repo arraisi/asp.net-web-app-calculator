@@ -2,7 +2,7 @@
 using System.Text;
 using System.Web;
 using System.Web.UI;
-using System.Collections.Generic;
+using System.Collections;
 
 namespace SimpleCalculator
 {
@@ -11,121 +11,121 @@ namespace SimpleCalculator
     {
         protected void Button0_Click(object sender, EventArgs e)
         {
-            calc_result.Value = calc_result.Value + "0";
+            calculationText.Value += "0";
         }
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            calc_result.Value = calc_result.Value + "1";
+            calculationText.Value += "1";
         }
 
         protected void Button2_Click(object sender, EventArgs e)
         {
-            calc_result.Value = calc_result.Value + "2";
+            calculationText.Value += "2";
         }
 
         protected void Button3_Click(object sender, EventArgs e)
         {
-            calc_result.Value = calc_result.Value + "3";
+            calculationText.Value += "3";
         }
 
         protected void Button4_Click(object sender, EventArgs e)
         {
-            calc_result.Value = calc_result.Value + "4";
+            calculationText.Value += "4";
         }
 
         protected void Button5_Click(object sender, EventArgs e)
         {
-            calc_result.Value = calc_result.Value + "5";
+            calculationText.Value += "5";
         }
 
         protected void Button6_Click(object sender, EventArgs e)
         {
-            calc_result.Value = calc_result.Value + "6";
+            calculationText.Value += "6";
         }
 
         protected void Button7_Click(object sender, EventArgs e)
         {
-            calc_result.Value = calc_result.Value + "7";
+            calculationText.Value += "7";
         }
 
         protected void Button8_Click(object sender, EventArgs e)
         {
-            calc_result.Value = calc_result.Value + "8";
+            calculationText.Value += "8";
         }
 
         protected void Button9_Click(object sender, EventArgs e)
         {
-            calc_result.Value = calc_result.Value + "9";
+            calculationText.Value += "9";
         }
 
         protected void ButtonBracketsOpen_Click(object sender, EventArgs e)
         {
-            calc_result.Value = calc_result.Value + "(";
+            calculationText.Value += "(";
         }
 
         protected void ButtonBracketsClose_Click(object sender, EventArgs e)
         {
-            calc_result.Value = calc_result.Value + ")";
+            calculationText.Value += ")";
         }
 
         protected void ButtonDivide_Click(object sender, EventArgs e)
         {
-            calc_result.Value = calc_result.Value + "/";
+            calculationText.Value += "/";
         }
 
         protected void ButtonMultiply_Click(object sender, EventArgs e)
         {
-            calc_result.Value = calc_result.Value + "x";
+            calculationText.Value += "x";
         }
 
 
         protected void ButtonPlus_Click(object sender, EventArgs e)
         {
-            if (calc_result.Value == string.Empty)
+            if (calculationText.Value == string.Empty)
             {
                 Response.Write("<script>alert('No Value is given.')</script>");
             }
             else
             {
-                calc_result.Value = calc_result.Value + "+";
+                calculationText.Value += "+";
             }
 
         }
 
         protected void ButtonMinus_Click(object sender, EventArgs e)
         {
-            if (calc_result.Value == string.Empty)
+            if (calculationText.Value == string.Empty)
             {
                 Response.Write("<script>alert('No Value is given.')</script>");
             }
             else
             {
-                calc_result.Value = calc_result.Value + "-";
+                calculationText.Value += "-";
             }
         }
 
         protected void ButtonC_Click(object sender, EventArgs e)
         {
-            if (calc_result.Value == string.Empty)
+            if (calculationText.Value == string.Empty)
             {
                 Response.Write("<script>alert('No Value is given.')</script>");
             }
             else
             {
-                calc_result.Value = null;
+                calculationText.Value = null;
             }
         }
 
         protected void ButtonCE_Click(object sender, EventArgs e)
         {
-            if (calc_result.Value == string.Empty)
+            if (calculationText.Value == string.Empty)
             {
                 Response.Write("<script>alert('No Value is given.')</script>");
             }
             else
             {
-                string CharactersInTextBox = calc_result.Value;
+                string CharactersInTextBox = calculationText.Value;
                 string FinalCharactersInTextBox = string.Empty;
 
                 for (int i = 0; i < CharactersInTextBox.Length - 1; i++)
@@ -133,130 +133,160 @@ namespace SimpleCalculator
                     FinalCharactersInTextBox = FinalCharactersInTextBox + CharactersInTextBox[i];
                 }
 
-                calc_result.Value = FinalCharactersInTextBox;
+                calculationText.Value = FinalCharactersInTextBox;
             }
 
         }
 
         protected void ButtonEquals_Click(object sender, EventArgs e)
         {
-            if (calc_result.Value == string.Empty)
+            if (calculationText.Value == string.Empty)
             {
                 Response.Write("<script>alert('No Value is given.')</script>");
             }
             else
             {
-                double result = RemoveBrackets(calc_result.Value);
-                calc_result.Value = Convert.ToString(result);
+                double result = RemoveBrackets(calculationText.Value);
+                calculationText.Value = Convert.ToString(result);
             }
         }
 
-        private double RemoveBrackets(string textCalculated)
+        private double RemoveBrackets(string calculatedText)
         {
-            while (textCalculated.Contains("(") && textCalculated.Contains(")"))
+            while (calculatedText.Contains("(") && calculatedText.Contains(")"))
             {
                 int openIndex = 0;
                 int closeIndex = 0;
-                for (int i = 0; i < textCalculated.Length; i++)
+                for (int i = 0; i < calculatedText.Length; i++)
                 {
-                    if (textCalculated[i].Equals('('))
+                    if (calculatedText[i].Equals('('))
                     {
                         openIndex = i;
                     }
-                    if (textCalculated[i].Equals(')'))
+                    if (calculatedText[i].Equals(')'))
                     {
                         closeIndex = i;
 
-                        textCalculated = textCalculated.Remove(openIndex, closeIndex - openIndex + 1).Insert(openIndex, ResolveBrackets(openIndex, closeIndex, textCalculated));
+                        calculatedText = calculatedText.Remove(openIndex, closeIndex - openIndex + 1).Insert(openIndex, ResolveBrackets(openIndex, closeIndex, calculatedText));
                         break;
                     }
                 }
             }
-            for (int i = 1; i < textCalculated.Length; i++)
+
+            for (int i = 1; i < calculatedText.Length; i++)
             {
-                if (textCalculated[i].Equals('-') && (textCalculated[i - 1].Equals('x') || textCalculated[i - 1].Equals('/')))
+                if (calculatedText[i].Equals('-') && (calculatedText[i - 1].Equals('x') || calculatedText[i - 1].Equals('/')))
                 {
                     for (int j = i - 1; j >= 0; j--)
                     {
-                        if (textCalculated[j].Equals('+'))
+                        if (calculatedText[j].Equals('+'))
                         {
-                            StringBuilder _textValue = new StringBuilder(textCalculated);
+                            StringBuilder _textValue = new StringBuilder(calculatedText);
                             _textValue[j] = '-';
-                            textCalculated = _textValue.ToString();
-                            textCalculated = textCalculated.Remove(i, 1);
+                            calculatedText = _textValue.ToString();
+                            calculatedText = calculatedText.Remove(i, 1);
                             break;
                         }
-                        else if (textCalculated[j].Equals('-'))
+                        else if (calculatedText[j].Equals('-'))
                         {
-                            StringBuilder _textValue = new StringBuilder(textCalculated);
+                            StringBuilder _textValue = new StringBuilder(calculatedText);
                             _textValue[j] = '+';
-                            textCalculated = _textValue.ToString();
-                            textCalculated = textCalculated.Remove(i, 1);
+                            calculatedText = _textValue.ToString();
+                            calculatedText = calculatedText.Remove(i, 1);
                             break;
                         }
                     }
                 }
             }
 
-            if (textCalculated[0].Equals('-'))
+
+            for (int i = 2; i < calculatedText.Length; i++)
             {
-                textCalculated = '0' + textCalculated;
+                if (calculatedText[i].Equals('-') && (calculatedText[i-1].Equals('+')|| calculatedText[i - 1].Equals('x') || calculatedText[i - 1].Equals('/')))
+                {
+                    for (int j = i-1; j >= 0; j--)
+                    {
+                        if (calculatedText[j].Equals('+'))
+                        {
+                            StringBuilder _textValue = new StringBuilder(calculatedText);
+                            _textValue[j] = '-';
+                            calculatedText = _textValue.ToString();
+                            calculatedText = calculatedText.Remove(i, 1);
+                            break;
+                        } else {
+                            calculatedText = calculatedText.Remove(i, 1);
+                            StringBuilder _textValue = new StringBuilder(calculatedText);
+                            _textValue.Insert(0, '-');
+                            calculatedText = _textValue.ToString();
+                            break;
+                        }
+                    }
+                }
             }
 
-            return Addition(textCalculated);
+            if (calculatedText[0].Equals('-'))
+            {
+                calculatedText = '0' + calculatedText;
+            }
+
+            return Addition(calculatedText);
         }
 
-        private string ResolveBrackets(int openIndex, int closeIndex, string textCalculated)
+        private string ResolveBrackets(int openIndex, int closeIndex, string calculatedText)
         {
-            double result = Addition(textCalculated.Substring(openIndex + 1, closeIndex - openIndex - 1));
+            double result = Addition(calculatedText.Substring(openIndex + 1, closeIndex - openIndex - 1));
             return Convert.ToString(result);
         }
 
 
-        private double Addition(string textCalculated)
+        private double Addition(string calculatedText)
         {
-            String[] textCalculatedArray = textCalculated.Split('+');
-            double total = Subtraction(textCalculatedArray[0]);
-            for (int i = 1; i < textCalculatedArray.Length; i++)
+            String[] calculatedTextArray = calculatedText.Split('+');
+            double total = Subtraction(calculatedTextArray[0]);
+            for (int i = 1; i < calculatedTextArray.Length; i++)
             {
-                total += Subtraction(textCalculatedArray[i]);
+                total += Subtraction(calculatedTextArray[i]);
             }
 
             return total;
         }
 
-        private double Subtraction(string textCalculated)
+        private double Subtraction(string calculatedText)
         {
-            String[] textCalculatedArray = textCalculated.Split('-');
-            double total = Multiplication(textCalculatedArray[0]);
-            for (int i = 1; i < textCalculatedArray.Length; i++)
+            string[] calculatedTextArray = calculatedText.Split('-');
+            if(calculatedTextArray.Length == 2 && calculatedTextArray[0] == string.Empty)
             {
-                total -= Multiplication(textCalculatedArray[i]);
+                return Convert.ToDouble("-" + calculatedTextArray[1]);
+            }
+            double total = Multiplication(calculatedTextArray[0]);
+            for (int i = 1; i < calculatedTextArray.Length; i++)
+            {
+                total -= Multiplication(calculatedTextArray[i]);
             }
             return total;
         }
 
-        private double Multiplication(string textCalculated)
+        private double Multiplication(string calculatedText)
         {
-            String[] textCalculatedArray = textCalculated.Split('x');
+            String[] calculatedTextArray = calculatedText.Split('x');
 
-            double total = Division(textCalculatedArray[0]);
-            for (int i = 1; i < textCalculatedArray.Length; i++)
+            double total = Division(calculatedTextArray[0]);
+            for (int i = 1; i < calculatedTextArray.Length; i++)
             {
-                total *= Division(textCalculatedArray[i]);
+                total *= Division(calculatedTextArray[i]);
             }
 
             return total;
         }
 
-        private double Division(string textCalculated)
+        private double Division(string calculatedText)
         {
-            String[] textCalculatedArray = textCalculated.Split('/');
+            String[] calculatedTextArray = calculatedText.Split('/');
 
-            double total = Convert.ToDouble(textCalculatedArray[0]);
-            for (int i = 1; i < textCalculatedArray.Length; i++)
+            double total = Convert.ToDouble(calculatedTextArray[0]);
+            for (int i = 1; i < calculatedTextArray.Length; i++)
             {
-                total /= Convert.ToDouble(textCalculatedArray[i]);
+                total /= Convert.ToDouble(calculatedTextArray[i]);
             }
 
             return total;
