@@ -60,7 +60,7 @@ namespace SimpleCalculator
             calculationText.Value += "9";
         }
 
-        ArrayList mathOperator = new ArrayList() { '+', '-', '/', '*'};
+        ArrayList mathOperator = new ArrayList() { '+', '-', '/', 'x'};
 
         protected void ButtonBracketsOpen_Click(object sender, EventArgs e)
         {
