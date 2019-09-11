@@ -3,7 +3,8 @@ using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Collections;
-
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 namespace SimpleCalculator
 {
 
@@ -59,30 +60,64 @@ namespace SimpleCalculator
             calculationText.Value += "9";
         }
 
+        ArrayList mathOperator = new ArrayList() { '+', '-', '/', '*'};
+
         protected void ButtonBracketsOpen_Click(object sender, EventArgs e)
         {
-            calculationText.Value += "(";
+            String input = calculationText.Value;
+            if (!calculationText.Value.Equals(String.Empty) && input[input.Length - 1].Equals(')'))
+            {
+                Response.Write("<script>alert('No Value is given.')</script>");
+            }
+            else
+            {
+                calculationText.Value += "(";
+            }
         }
 
         protected void ButtonBracketsClose_Click(object sender, EventArgs e)
         {
-            calculationText.Value += ")";
+            String input = calculationText.Value;
+            if (calculationText.Value == string.Empty || input[input.Length-1].Equals('(')|| mathOperator.Contains(input[input.Length-1])){
+                Response.Write("<script>alert('No Value is given.')</script>");
+            }
+            else
+            {
+                calculationText.Value += ")";
+            }
         }
 
         protected void ButtonDivide_Click(object sender, EventArgs e)
         {
-            calculationText.Value += "/";
+            String input = calculationText.Value;
+            if (calculationText.Value == string.Empty || input[input.Length-1].Equals('(') || mathOperator.Contains(input[input.Length-1]))
+            {
+                Response.Write("<script>alert('No Value is given.')</script>");
+            }
+            else
+            {
+                calculationText.Value += "/";
+            }
         }
 
         protected void ButtonMultiply_Click(object sender, EventArgs e)
         {
-            calculationText.Value += "x";
+            String input = calculationText.Value;
+            if (calculationText.Value == string.Empty || input[input.Length - 1].Equals('(') || mathOperator.Contains(input[input.Length - 1]))
+            {
+                Response.Write("<script>alert('No Value is given.')</script>");
+            }
+            else
+            {
+                calculationText.Value += "x";
+            }
         }
 
 
         protected void ButtonPlus_Click(object sender, EventArgs e)
         {
-            if (calculationText.Value == string.Empty)
+            String input = calculationText.Value;
+            if (calculationText.Value == string.Empty || input[input.Length - 1].Equals('(') || mathOperator.Contains(input[input.Length - 1]))
             {
                 Response.Write("<script>alert('No Value is given.')</script>");
             }
@@ -95,7 +130,8 @@ namespace SimpleCalculator
 
         protected void ButtonMinus_Click(object sender, EventArgs e)
         {
-            if (calculationText.Value == string.Empty)
+            String input = calculationText.Value;
+            if (calculationText.Value == string.Empty || input[input.Length - 1].Equals('(') || mathOperator.Contains(input[input.Length - 1]))
             {
                 Response.Write("<script>alert('No Value is given.')</script>");
             }
@@ -140,9 +176,17 @@ namespace SimpleCalculator
 
         protected void ButtonEquals_Click(object sender, EventArgs e)
         {
+
+            String input = calculationText.Value;
+            int countOpenBracket = input.Split('(').Length - 1;
+            int countCloseBracket = input.Split(')').Length - 1;
+            int totalBracket = countOpenBracket + countCloseBracket;
             if (calculationText.Value == string.Empty)
             {
                 Response.Write("<script>alert('No Value is given.')</script>");
+            } else if ((totalBracket%2) == 1)
+            {
+                Response.Write("<script>alert('Missing Bracket.')</script>");
             }
             else
             {
@@ -153,6 +197,7 @@ namespace SimpleCalculator
 
         private double RemoveBrackets(string calculatedText)
         {
+            var names = new List<string> { "+", "-", "*", "/" };
             while (calculatedText.Contains("(") && calculatedText.Contains(")"))
             {
                 int openIndex = 0;
