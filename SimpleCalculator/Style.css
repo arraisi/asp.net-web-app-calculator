@@ -8,8 +8,8 @@
 }
 
 .calculator {
-    width: 300px;
-    height: 300px;
+    width: 360px;
+    height: 460px;
     background-color: #019421;
     /*border: 2px solid #e9ebe8;*/
     margin: 0 auto 0 auto;
@@ -56,6 +56,6 @@ input{
     border: 1px solid #015212;
     color: #f7f7f7;
     width: 90%;
-    height: 40px;
+    height: 90%;
     font-size: 20px;
 }
