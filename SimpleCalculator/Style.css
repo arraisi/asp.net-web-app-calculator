@@ -1,6 +1,6 @@
 ﻿body {
     font-family: Arial, Helvetica, sans-serif;
-    background-color: #b9b9b9;
+    background-color: #f0f0f0;
 }
 .calculator-holder {
     position: relative;
@@ -66,7 +66,7 @@ header {
     padding-left: 5px;
     text-align: left;
     font-size: 20px;
-    color: #353535;
+    color: #bfbfbf;
 }
 
 /* Container for flexboxes */
