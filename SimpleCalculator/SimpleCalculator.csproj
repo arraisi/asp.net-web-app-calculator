@@ -36,6 +36,7 @@
     <Content Include="Web.config" />
     <Content Include="Default.aspx" />
     <Content Include="Style.css" />
+    <Content Include="Assets\Images\Screen Shot 2019-09-17 at 20.31.48.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Global.asax.cs">
@@ -47,6 +48,10 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets\" />
+    <Folder Include="Assets\Images\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

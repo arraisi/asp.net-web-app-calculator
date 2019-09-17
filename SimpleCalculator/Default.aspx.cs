@@ -79,7 +79,7 @@ namespace SimpleCalculator
         {
             String input = calculationText.Value;
             if (calculationText.Value == string.Empty || input[input.Length-1].Equals('(')|| mathOperator.Contains(input[input.Length-1])){
-                Response.Write("<script>alert('No Value is given.')</script>");
+                Response.Write("<script>alert('Missing Bracket.')</script>");
             }
             else
             {

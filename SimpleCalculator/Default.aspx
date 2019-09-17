@@ -6,7 +6,17 @@
     <link href="Style.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
-        <form id="form1" runat="server">
+    <header>
+      <h2>ABDUL RAHMAN ARRAISI | XTREMAX</h2>
+    </header>
+    <section>
+          <nav>
+            <ul>
+             <img width="100%" src="../../Assets/Images/Screen Shot 2019-09-17 at 20.31.48.png"/>
+            </ul>
+          </nav>
+          <content>
+            <form id="form1" runat="server">
             <div class="calculator-holder">
                 <table class="calculator" id="calc">
                     <tr>
@@ -85,5 +95,8 @@
                 </table>
             </div>
         </form>
+          </content>
+            
+    </section>
 </body>
 </html>
